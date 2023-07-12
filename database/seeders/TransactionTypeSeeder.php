@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TransactionType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -43,6 +44,6 @@ class TransactionTypeSeeder extends Seeder
             ]
         ];
 
-        OperatorCard::insert($transactionTypes);
+        TransactionType::insert($transactionTypes);
     }
 }
