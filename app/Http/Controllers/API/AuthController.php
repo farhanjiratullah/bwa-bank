@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\StoreRegisterRequest;
+use App\Http\Requests\API\Auth\LoginRequest;
+use App\Http\Requests\API\Auth\StoreRegisterRequest;
+use App\Http\Resources\Users\UserResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    public function register(StoreRegisterRequest $request)
+    public function register(StoreRegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
 
@@ -38,6 +42,22 @@ class AuthController extends Controller
             return response()->json(['message' => $th->getMessage()], 500);
         }
 
-        return response()->json(['user' => $user], 201);
+        return response()->json(UserResource::make($user), 201);
+    }
+
+    public function login(LoginRequest $request): JsonResponse
+    {
+        if (!$token = JWTAuth::attempt($request->validated())) {
+            return response()->json(['message' => 'These credentials do not match our records.'], 422);
+        }
+
+        return response()->json([
+            'user' => UserResource::make(auth()->user()->with('wallet')->first()),
+            'token' => [
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60
+            ]
+        ], 200);
     }
 }
