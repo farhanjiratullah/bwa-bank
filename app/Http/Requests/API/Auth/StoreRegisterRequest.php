@@ -29,7 +29,7 @@ class StoreRegisterRequest extends FormRequest
             'pin' => 'required|digits:6',
             'profile_picture' => 'nullable|image|mimes:png,jpg,jpeg',
             'ktp' => 'nullable|image|mimes:png,jpg,jpeg',
-            'card_number' => 'required|integer|digits:16'
+            'card_number' => 'required|string|digits:16'
         ];
     }
 

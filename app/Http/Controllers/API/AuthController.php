@@ -36,13 +36,24 @@ class AuthController extends Controller
             $user->wallet()->create($data);
 
             DB::commit();
+
+            $token = JWTAuth::attempt(['email' => $request->email, 'password' => $request->password]);
+
+            $user = User::with('wallet')->whereEmail($user->email)->first();
         } catch (\Throwable $th) {
             DB::rollBack();
 
             return response()->json(['message' => $th->getMessage()], 500);
         }
 
-        return response()->json(UserResource::make($user), 201);
+        return response()->json([
+            'user' => UserResource::make($user),
+            'token' => [
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60
+            ]
+        ], 201);
     }
 
     public function login(LoginRequest $request): JsonResponse
@@ -51,8 +62,10 @@ class AuthController extends Controller
             return response()->json(['message' => 'These credentials do not match our records.'], 422);
         }
 
+        $user = User::with('wallet')->whereEmail($request->email)->first();
+
         return response()->json([
-            'user' => UserResource::make(auth()->user()->with('wallet')->first()),
+            'user' => UserResource::make($user),
             'token' => [
                 'access_token' => $token,
                 'token_type' => 'Bearer',
