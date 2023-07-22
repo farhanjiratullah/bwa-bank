@@ -40,9 +40,9 @@ class TopUpController extends Controller
     private function callMidtrans(array $params): array
     {
         \Midtrans\Config::$serverKey = config('services.midtrans.midtrans_server_key');
-        \Midtrans\Config::$isProduction = (bool) config('services.midtrans.midtrans_is_production');
-        \Midtrans\Config::$isSanitized = (bool) config('services.midtrans.midtrans_is_sanitized');
-        \Midtrans\Config::$is3ds = (bool) config('services.midtrans.midtrans_is_3ds');
+        \Midtrans\Config::$isProduction = config('services.midtrans.midtrans_is_production');
+        \Midtrans\Config::$isSanitized = config('services.midtrans.midtrans_is_sanitized');
+        \Midtrans\Config::$is3ds = config('services.midtrans.midtrans_is_3ds');
 
         $paymentUrl = \Midtrans\Snap::createTransaction($params);
 
@@ -71,7 +71,7 @@ class TopUpController extends Controller
         return [
             'transaction_details' => $transactionDetails,
             'customer_details' => $customerDetails,
-            'enabled_payment' => $enabledPayment,
+            'enabled_payments' => $enabledPayment,
         ];
     }
 
