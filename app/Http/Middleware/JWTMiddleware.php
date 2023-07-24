@@ -18,19 +18,13 @@ class JWTMiddleware
         try {
             $user = \Tymon\JWTAuth\Facades\JWTAuth::parseToken()->authenticate();
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            // if( !$request->method('post') && $request->routeIs('refresh') ) {
-            //     return ResponseFormatter::error(message: $e->getMessage(), code: 401);
-            // }
-
-            return response()->json(['message' => $e->getMessage()], $e->getCode());
-
-            return $next($request);
+            return response()->json(['message' => $e->getMessage()], 401);
         } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getCode());;
+            return response()->json(['message' => $e->getMessage()], 401);;
         } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getCode());;
+            return response()->json(['message' => $e->getMessage()], 401);;
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getCode());;
+            return response()->json(['message' => $e->getMessage()], 401);;
         }
 
         return $next($request);

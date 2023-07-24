@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\TopUpController;
+use App\Http\Controllers\API\TransferController;
 use App\Http\Controllers\API\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,6 @@ Route::post('/webhook', [WebhookController::class, 'update'])->name('webhook.upd
 
 Route::middleware(['jwt.verify'])->group(function () {
     Route::post('/top-up', [TopUpController::class, 'store'])->name('top-up.store');
+
+    Route::post('/transfer', [TransferController::class, 'store'])->name('transfer.store');
 });
