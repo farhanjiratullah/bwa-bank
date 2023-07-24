@@ -5,6 +5,7 @@ use App\Http\Controllers\API\DataPlanController;
 use App\Http\Controllers\API\OperatorCardController;
 use App\Http\Controllers\API\PaymentMethodController;
 use App\Http\Controllers\API\TopUpController;
+use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\TransferController;
 use App\Http\Controllers\API\TransferHistoryController;
 use App\Http\Controllers\API\WebhookController;
@@ -43,4 +44,6 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method.index');
 
     Route::get('/transfer-history', [TransferHistoryController::class, 'index'])->name('transfer-history.index');
+
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
 });
