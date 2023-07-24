@@ -18,6 +18,7 @@ class PaymentMethodSeeder extends Seeder
                 'name' => 'Bank BWA',
                 'code' => 'bwa',
                 'status' => 'active',
+                'thumbnail' => 'assets/payment-methods/bwa.png',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -25,6 +26,7 @@ class PaymentMethodSeeder extends Seeder
                 'name' => 'Bank BNI',
                 'code' => 'bni_va',
                 'status' => 'active',
+                'thumbnail' => 'assets/payment-methods/bni.png',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -32,6 +34,7 @@ class PaymentMethodSeeder extends Seeder
                 'name' => 'Bank BCA',
                 'code' => 'bca_va',
                 'status' => 'active',
+                'thumbnail' => 'assets/payment-methods/bca.png',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -39,6 +42,7 @@ class PaymentMethodSeeder extends Seeder
                 'name' => 'Bank BRI',
                 'code' => 'bri_va',
                 'status' => 'active',
+                'thumbnail' => 'assets/payment-methods/bri.png',
                 'created_at' => now(),
                 'updated_at' => now()
             ]
