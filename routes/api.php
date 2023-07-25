@@ -35,6 +35,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/webhook', [WebhookController::class, 'update'])->name('webhook.update');
 
 Route::middleware(['jwt.verify'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
     Route::post('/top-up', [TopUpController::class, 'store'])->name('top-up.store');
 
     Route::post('/transfer', [TransferController::class, 'store'])->name('transfer.store');
@@ -54,4 +56,5 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::put('/user/{user:username}', [UserController::class, 'update'])->name('user.update');
 
     Route::get('/wallet', [WalletController::class, 'show'])->name('wallet.show');
+    Route::put('/wallet', [WalletController::class, 'update'])->name('wallet.update');
 });
