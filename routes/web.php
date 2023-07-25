@@ -21,12 +21,18 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::view('/login', 'login')->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
+    Route::middleware('guest:web')->group(function () {
+        Route::view('/login', 'login')->name('login');
+        Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
+    });
 
-    Route::view('/', 'dashboard')->name('dashboard');
+    Route::middleware('auth:web')->group(function () {
+        Route::view('/', 'dashboard')->name('dashboard');
 
-    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+        Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    });
 });
 
 Route::get('/payment/finish', [RedirectPaymentController::class, 'finish'])->name('payment.finish');

@@ -16,6 +16,13 @@ class AuthController extends Controller
             return to_route('admin.dashboard');
         }
 
-        return redirect()->back()->with('error', 'Invalid credentials');
+        return redirect()->back()->with('error', 'Invalid credentials')->withInput();
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+
+        return to_route('admin.login');
     }
 }
