@@ -8,6 +8,7 @@ use App\Http\Controllers\API\TopUpController;
 use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\TransferController;
 use App\Http\Controllers\API\TransferHistoryController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,4 +47,6 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::get('/transfer-history', [TransferHistoryController::class, 'index'])->name('transfer-history.index');
 
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+
+    Route::get('/user', [UserController::class, 'show'])->name('user.show');
 });
