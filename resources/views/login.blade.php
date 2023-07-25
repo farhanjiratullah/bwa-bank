@@ -25,11 +25,16 @@
       <p class="login-box-msg">Sign in to start your session</p>
       
       {{-- alert here --}}
+      @if (session()->has('error'))
+          <div class="alert alert-danger">
+            {{ session('error') }}
+          </div>
+      @endif()
 
-      <form action="" method="post">
-        
+      <form action="{{ route('admin.login.attempt') }}" method="post">
+        @csrf
         <div class="input-group mb-3">
-          <input name="email" type="email" class="form-control" placeholder="Email" value="">
+          <input name="email" type="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
