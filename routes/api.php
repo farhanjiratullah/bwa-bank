@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\DataPlanController;
 use App\Http\Controllers\API\OperatorCardController;
 use App\Http\Controllers\API\PaymentMethodController;
+use App\Http\Controllers\API\TipController;
 use App\Http\Controllers\API\TopUpController;
 use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\TransferController;
@@ -57,4 +58,6 @@ Route::middleware(['jwt.verify'])->group(function () {
 
     Route::get('/wallet', [WalletController::class, 'show'])->name('wallet.show');
     Route::put('/wallet', [WalletController::class, 'update'])->name('wallet.update');
+
+    Route::get('/tip', [TipController::class, 'index'])->name('wallet.index');
 });

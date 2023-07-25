@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             OperatorCardSeeder::class,
             DataPlanSeeder::class,
             TransactionTypeSeeder::class,
+            TipSeeder::class,
         ]);
     }
 }
