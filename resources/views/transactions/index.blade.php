@@ -23,9 +23,17 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($transactions as $transaction)
                   <tr>
-                    <td></td>
+                    <td>{{ $transaction->id }}</td>
+                    <td>{{ $transaction->user->name }}</td>
+                    <td>{{ number_format($transaction->amount) }}</td>
+                    <td>{{ $transaction->transactionType->code }}</td>
+                    <td>{{ $transaction->paymentMethod->name }}</td>
+                    <td>{{ $transaction->status }}</td>
+                    <td>{{ $transaction->created_at }}</td>
                   </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -33,4 +41,10 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('js')
+    <script>
+      $('#transactions').DataTable();
+    </script>
 @endsection

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\RedirectPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->group(function () {
-    Route::view('/', 'dashboard');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::view('/', 'dashboard')->name('dashboard');
+
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 });
 
 Route::get('/payment/finish', [RedirectPaymentController::class, 'finish'])->name('payment.finish');
