@@ -9,6 +9,7 @@ use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\TransferController;
 use App\Http\Controllers\API\TransferHistoryController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\API\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,4 +52,6 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::get('/user', [UserController::class, 'show'])->name('user.show');
     Route::get('/user/{username}', [UserController::class, 'getUsersByUsername'])->name('user.getUsersByUsername');
     Route::put('/user/{user:username}', [UserController::class, 'update'])->name('user.update');
+
+    Route::get('/wallet', [WalletController::class, 'show'])->name('wallet.show');
 });
